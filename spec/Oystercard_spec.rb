@@ -6,4 +6,8 @@ describe Oystercard do
     expect(subject.balance).to be 0
   end
 
+  it 'adds money to the card' do
+    expect { subject.top_up(5) }.to change { subject.balance }.by(5)
+  end
+
 end
