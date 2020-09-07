@@ -14,4 +14,8 @@ describe Oystercard do
     expect { subject.top_up(100) }.to raise_error "Cannot top up: your card reached the limit of £90"
   end
 
+  it 'subtracts cost of journey from balance' do
+    expect { subject.spend(2) }.to change { subject.balance }.by(-2)
+  end
+
 end
