@@ -10,4 +10,8 @@ describe Oystercard do
     expect { subject.top_up(5) }.to change { subject.balance }.by(5)
   end
 
+  it 'sets a limit of £90 to the card' do
+    expect { subject.top_up(100) }.to raise_error "Cannot top up: your card reached the limit of £90"
+  end
+
 end
