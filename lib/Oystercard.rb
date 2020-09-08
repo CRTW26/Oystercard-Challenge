@@ -50,4 +50,14 @@ class Oystercard
       @on_journey = true
     end
   end
+
+=begin
+  def in_journey?(station)
+    if @last_journey.has_key?(:station)
+      @on_journey = false
+    elsif @last_journey.has_value?(:station)
+      @on_journey = true
+    end
+  end
+=end
 end
