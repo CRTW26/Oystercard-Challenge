@@ -20,11 +20,17 @@ class Oystercard
   end
 
   def touch_in
-    raise "Insufficient balance for journey" if @balance < MIN_JOURNEY_COST
+    raise "Insufficient balance for journey" if insufficient_funds?
     @on_journey = true
   end
 
   def touch_out
     @on_journey = false
+  end
+
+  private
+
+  def insufficient_funds?
+    @balance < MIN_JOURNEY_COST
   end
 end

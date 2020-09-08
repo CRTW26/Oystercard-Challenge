@@ -37,8 +37,11 @@ describe Oystercard do
 
     it "raises an error if card balance is less than minimum amount" do
       card = Oystercard.new
-      card.touch_in
-      expect { (subject.balance < Oystercard::MIN_JOURNEY_COST) }.to raise_error "Insufficient balance for journey"
+      expect { card.touch_in }.to raise_error "Insufficient balance for journey"
+    end
+
+    it "is not expected to raise an error if card balance is more than minimum amount" do
+      expect { oystercard.touch_in }.to_not raise_error
     end
   end
 
