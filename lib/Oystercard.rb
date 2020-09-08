@@ -11,12 +11,8 @@ class Oystercard
     end
 
     def top_up(amount)
+      raise "Cannot top up: your card reached the limit of £#{MAX_AMOUNT}" if @balance + amount > MAX_AMOUNT
       @balance += amount
-      if amount > MAX_AMOUNT
-        raise "Cannot top up: your card reached the limit of £#{MAX_AMOUNT}"
-      else
-        'Your card was topped up successfully.'
-      end
     end
 
     def spend(cost)
