@@ -19,6 +19,7 @@ class Oystercard
   end
 
   def touch_in(entry_station)
+    journey_history
     raise "Insufficient balance for journey" if insufficient_funds?
     last_journey[:entry_station]
     @entry_station = entry_station
@@ -31,6 +32,12 @@ class Oystercard
     @entry_station = nil
     last_journey[:entry_station] = :exit_station
     in_journey?
+
+  end
+
+  def journey_history
+    @past_journeys << @last_journey
+    @last_journey = {}
   end
 
   private
@@ -49,6 +56,7 @@ class Oystercard
     else
       @on_journey = true
     end
+
   end
 
 =begin
