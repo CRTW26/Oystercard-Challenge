@@ -2,6 +2,7 @@ require "Oystercard"
 
 describe Oystercard do
   let(:oystercard) { Oystercard.new(20) }
+  let(:station) { station_double = double :station }
 
   describe "#balance" do
     it "shows the balance of the card" do
@@ -19,30 +20,30 @@ describe Oystercard do
     end
   end
 
-  describe "#spend" do
-    it "subtracts cost of journey from balance" do
-      expect { subject.spend(2) }.to change { subject.balance }.by(-2)
-    end
-  end
-
   describe "#touch_in" do
     it "allows user to touch card" do
       expect(oystercard).to respond_to(:touch_in)
     end
 
     it "changes on_journey status to true" do
-      oystercard.touch_in
+      oystercard.touch_in(station)
       expect(oystercard.on_journey).to be true
     end
 
     it "raises an error if card balance is less than minimum amount" do
       card = Oystercard.new
-      expect { card.touch_in }.to raise_error "Insufficient balance for journey"
+      expect { card.touch_in(station) }.to raise_error "Insufficient balance for journey"
     end
 
     it "is not expected to raise an error if card balance is more than minimum amount" do
-      expect { oystercard.touch_in }.to_not raise_error
+      expect { oystercard.touch_in(station) }.to_not raise_error
     end
+
+    it "stores users entry station" do
+      oystercard.touch_in(station)
+      expect(oystercard.entry_station).to eq station
+    end
+
   end
 
   describe "#touch_out" do
@@ -51,13 +52,13 @@ describe Oystercard do
     end
 
     it "changes on_journey to be false" do
-      oystercard.touch_in
+      oystercard.touch_in(station)
       oystercard.touch_out
       expect(oystercard.on_journey).to be false
     end
 
     it "subracts cost of journey from card balance" do
-      oystercard.touch_in
+      oystercard.touch_in(station)
       expect { oystercard.touch_out }.to change { oystercard.balance }.by(-Oystercard::MIN_JOURNEY_COST)
     end
   end
