@@ -55,5 +55,10 @@ describe Oystercard do
       oystercard.touch_out
       expect(oystercard.on_journey).to be false
     end
+
+    it "subracts cost of journey from card balance" do
+      oystercard.touch_in
+      expect { oystercard.touch_out }.to change { oystercard.balance }.by(-Oystercard::MIN_JOURNEY_COST)
+    end
   end
 end

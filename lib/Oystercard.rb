@@ -15,16 +15,13 @@ class Oystercard
     @balance += amount
   end
 
-  def spend(cost)
-    @balance -= cost
-  end
-
   def touch_in
     raise "Insufficient balance for journey" if insufficient_funds?
     @on_journey = true
   end
 
   def touch_out
+    spend(MIN_JOURNEY_COST)
     @on_journey = false
   end
 
@@ -33,4 +30,9 @@ class Oystercard
   def insufficient_funds?
     @balance < MIN_JOURNEY_COST
   end
+
+    def spend(cost)
+      @balance -= cost
+    end
+
 end
