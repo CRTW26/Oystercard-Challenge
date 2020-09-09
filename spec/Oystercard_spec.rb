@@ -20,24 +20,16 @@ describe Oystercard do
     end
   end
 
-  describe "#touch_in" do
-    it "allows user to touch card" do
-      expect(oystercard).to respond_to(:touch_in)
-    end
+#NEEEDS TO BE CHANGED AFTER JOURNEY CLASS BEEN ADDED
+    #it "raises an error if card balance is less than minimum amount" do
+    #  card = Oystercard.new
+    #  expect { card.touch_in(entry_station) }.to raise_error "Insufficient balance for journey"
+   # end
 
-    it "changes on_journey status to true" do
-      oystercard.touch_in(entry_station)
-      expect(oystercard.on_journey).to be true
-    end
-
-    it "raises an error if card balance is less than minimum amount" do
-      card = Oystercard.new
-      expect { card.touch_in(entry_station) }.to raise_error "Insufficient balance for journey"
-    end
-
-    it "is not expected to raise an error if card balance is more than minimum amount" do
-      expect { oystercard.touch_in(entry_station) }.to_not raise_error
-    end
+    #NEEEDS TO BE CHANGED AFTER JOURNEY CLASS BEEN ADDED
+    #it "is not expected to raise an error if card balance is more than minimum amount" do
+    #expect { oystercard.touch_in(entry_station) }.to_not raise_error
+    #end
 
 =begin  removed as hash now controls the on journey variable
     it "stores users entry station" do
@@ -45,23 +37,12 @@ describe Oystercard do
       expect(oystercard.entry_station).to eq entry_station
     end
 =end
+
+
+#NEEEDS TO BE CHANGED AFTER JOURNEY CLASS BEEN ADDED
+    #it "subracts cost of journey from card balance" do
+     # oystercard.touch_in(entry_station)
+     # expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by(-Oystercard::MIN_JOURNEY_COST)
+   # end
   end
 
-  describe "#touch_out" do
-    it "allows user to touch out" do
-      expect(oystercard).to respond_to(:touch_out)
-    end
-
-    it "changes on_journey to be false" do
-      oystercard.touch_in(entry_station)
-      oystercard.touch_out(exit_station)
-      expect(oystercard.on_journey).to be false
-    end
-
-    it "subracts cost of journey from card balance" do
-      oystercard.touch_in(entry_station)
-      expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by(-Oystercard::MIN_JOURNEY_COST)
-    end
-  end
-
-end

@@ -14,26 +14,7 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in(entry_station)
-    journey_history
-    raise "Insufficient balance for journey" if insufficient_funds?
-    current_journey["Entry Station"] = :entry_station
-    in_journey?
-  end
 
-  def touch_out(exit_station)
-    spend(MIN_JOURNEY_COST)
-    current_journey["Exit Station"] = :exit_station
-    in_journey?
-  end
-
-  def journey_history
-    @past_journeys << @current_journey
-    @current_journey = {
-      "Entry Station" => nil,
-      "Exit Station" => nil,
-    }
-  end
 
   private
 
@@ -45,15 +26,7 @@ class Oystercard
     @balance -= cost
   end
 
-  def in_journey?
-    if @current_journey["Entry Station"] == nil && @current_journey["Exit Station"] == nil
-      @on_journey = false
-    elsif @current_journey["Entry Station"] == :entry_station && @current_journey["Exit Station"] == nil
-      @on_journey = true
-    elsif @current_journey["Entry Station"] == :entry_station && @current_journey["Exit Station"] == :exit_station
-      @on_journey = false
-    end
-  end
+
 
 =begin
   def in_journey?
