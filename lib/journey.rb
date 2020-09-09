@@ -9,7 +9,7 @@ class Journey
       "Entry Station" => nil,
       "Exit Station" => nil,
     }
-  end 
+  end
   def touch_in(entry_station)
     journey_history
     #raise "Insufficient balance for journey" if insufficient_funds?
@@ -22,9 +22,9 @@ class Journey
   #if @current_journey["Entry Station"] == nil && @current_journey["Exit Station"] == nil
   #  @on_journey = false
   #elsif @current_journey["Entry Station"] == :entry_station && @current_journey["Exit Station"] == nil
-   # @on_journey = true
- # elsif @current_journey["Entry Station"] == :entry_station && @current_journey["Exit Station"] == :exit_station
-   # @on_journey = false
+   #@on_journey = true
+  #elsif @current_journey["Entry Station"] == :entry_station && @current_journey["Exit Station"] == :exit_station
+  #  @on_journey = false
   #end
 end
 
@@ -35,10 +35,10 @@ def touch_out(exit_station)
 end
 
 def journey_history
-  @past_journeys << @current_journey
-  @current_journey = {
-    "Entry Station" => nil,
-    "Exit Station" => nil,
-  }
+#  @past_journeys << @current_journey
+#  @current_journey = {
+#    "Entry Station" => nil,
+#    "Exit Station" => nil,
+#  }
 end
 end

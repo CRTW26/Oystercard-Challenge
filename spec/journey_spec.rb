@@ -7,17 +7,17 @@ describe Journey do
   let(:exit_station) { station_double = double :station }
 
 
- 
+
   it "has an empty array" do
     expect(journey).to respond_to (:past_journeys)
   end
 
   describe "touching in and out" do
     it "creates one journey" do
-      oystercard.touch_in(entry_station)
-      oystercard.touch_out(exit_station)
-      expect(oystercard.current_journey).to have_value(:entry_station)
-      expect(oystercard.current_journey).to have_value(:exit_station)
+      journey.touch_in(entry_station)
+      journey.touch_out(exit_station)
+      expect(journey.current_journey).to have_value(:entry_station)
+      expect(journey.current_journey).to have_value(:exit_station)
     end
   end
 
@@ -31,12 +31,12 @@ describe Journey do
       journey.touch_in(entry_station)
       expect(journey.on_journey).to be true
     end
-  end 
+  end
     describe "#touch_out" do
     it "allows user to touch out" do
       expect(journey).to respond_to(:touch_out)
     end
-  end 
+  end
 
     it "changes on_journey to be false" do
       journey.touch_in(entry_station)
