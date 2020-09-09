@@ -13,8 +13,8 @@ describe Oystercard do
     it "creates one journey" do
       oystercard.touch_in(entry_station)
       oystercard.touch_out(exit_station)
-      expect(oystercard.last_journey).to have_key(:entry_station)
-      expect(oystercard.last_journey).to have_value(:exit_station)
+      expect(oystercard.current_journey).to have_value(:entry_station)
+      expect(oystercard.current_journey).to have_value(:exit_station)
     end
   end
 
@@ -53,10 +53,12 @@ describe Oystercard do
       expect { oystercard.touch_in(entry_station) }.to_not raise_error
     end
 
+=begin  removed as hash now controls the on journey variable
     it "stores users entry station" do
       oystercard.touch_in(entry_station)
       expect(oystercard.entry_station).to eq entry_station
     end
+=end
   end
 
   describe "#touch_out" do

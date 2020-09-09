@@ -1,5 +1,5 @@
 class Oystercard
-  attr_reader :balance, :on_journey, :entry_station, :past_journeys, :last_journey
+  attr_reader :balance, :on_journey, :past_journeys, :current_journey
 
   DEFAULT_BALANCE = 0
   MAX_AMOUNT = 90
@@ -8,9 +8,12 @@ class Oystercard
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
     @on_journey = false
-    @entry_station = nil
+
     @past_journeys = []
-    @last_journey = {}
+    @current_journey = {
+      "Entry Station" => nil,
+      "Exit Station" => nil,
+    }
   end
 
   def top_up(amount)
@@ -21,23 +24,22 @@ class Oystercard
   def touch_in(entry_station)
     journey_history
     raise "Insufficient balance for journey" if insufficient_funds?
-    last_journey[:entry_station]
-    @entry_station = entry_station
-
+    current_journey["Entry Station"] = :entry_station
     in_journey?
   end
 
   def touch_out(exit_station)
     spend(MIN_JOURNEY_COST)
-    @entry_station = nil
-    last_journey[:entry_station] = :exit_station
+    current_journey["Exit Station"] = :exit_station
     in_journey?
-
   end
 
   def journey_history
-    @past_journeys << @last_journey
-    @last_journey = {}
+    @past_journeys << @current_journey
+    @current_journey = {
+      "Entry Station" => nil,
+      "Exit Station" => nil,
+    }
   end
 
   private
@@ -51,21 +53,20 @@ class Oystercard
   end
 
   def in_journey?
+    if @current_journey["Entry Station"] == nil && @current_journey["Exit Station"] == nil
+      @on_journey = false
+    elsif @current_journey["Entry Station"] == :entry_station && @current_journey["Exit Station"] == nil
+      @on_journey = true
+    elsif @current_journey["Entry Station"] == :entry_station && @current_journey["Exit Station"] == :exit_station
+      @on_journey = false
+    end
+  end
+
+=begin
+  def in_journey?
     if @entry_station.nil?
       @on_journey = false
     else
       @on_journey = true
-    end
-
-  end
-
-=begin
-  def in_journey?(station)
-    if @last_journey.has_key?(:station)
-      @on_journey = false
-    elsif @last_journey.has_value?(:station)
-      @on_journey = true
-    end
-  end
 =end
 end
