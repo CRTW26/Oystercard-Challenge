@@ -2,21 +2,7 @@ require "Oystercard"
 
 describe Oystercard do
   let(:oystercard) { Oystercard.new(20) }
-  let(:entry_station) { station_double = double :station }
-  let(:exit_station) { station_double = double :station }
-
-  it "has an empty array" do
-    expect(oystercard.past_journeys).to be_empty
-  end
-
-  describe "touching in and out" do
-    it "creates one journey" do
-      oystercard.touch_in(entry_station)
-      oystercard.touch_out(exit_station)
-      expect(oystercard.current_journey).to have_value(:entry_station)
-      expect(oystercard.current_journey).to have_value(:exit_station)
-    end
-  end
+  
 
   describe "#balance" do
     it "shows the balance of the card" do
