@@ -77,4 +77,5 @@ describe Oystercard do
       expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by(-Oystercard::MIN_JOURNEY_COST)
     end
   end
+
 end
